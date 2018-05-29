@@ -15,16 +15,19 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
+STATIC_PATH = os.path.join(BASE_DIR,'static')
 STATIC_URL = '/static/' # You may find this is already defined as such.
 #STATIC_ROOT = os.path.join(BASE_DIR, "Static")
-STATIC_PATH = os.path.join(BASE_DIR,'Static')
+
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'Templates')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+
+
 STATICFILES_DIRS = [
 
-    MEDIA_ROOT
+    STATIC_PATH
 ]
 
 
@@ -84,6 +87,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.media',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
