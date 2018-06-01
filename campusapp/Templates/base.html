@@ -18,19 +18,20 @@
   </head>
 
   <body>
+
     <nav class="nav-extended red darken-2">
       <div class="nav-wrapper">
-        <a href="#" class="brand-logo" style="padding-left:0.5em;">CAMPUS</a>
+         <a href="index.html" class="brand-logo left"><img class="responsive-img" style="height:10%; padding-left:0.70em;"id="logo" src="/media/campusLogo.png"/></a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <ul id="nav-mobile" class="right hide-on-med-and-down" style="padding-right:2em;">
           <li><a href="sass.html">BAR</a></li>
           <li><a href="badges.html">CLUB</a></li>
           <li><a href="collapsible.html">DINER</a></li>
-          <li> <i class="material-icons">account_box</i></li>
+          <li> <i class="material-icons" style="">account_box</i></li>
         </ul>
       </div>
-      <div class="nav-content">
-        <ul class="tabs tabs-transparent">
+      <div class="nav-content" style="">
+        <ul class="tabs tabs-transparent hide-on-med-and-down ">
           <li class="tab"><a href="#test1">What's On</a></li>
           <li class="tab"><a class="active" href="#test2">Eat</a></li>
           <!--li class="tab disabled"><a href="#test3">Disabled Tab</a></li-->
@@ -48,8 +49,6 @@
       <li><a href="badges.html">About Us </a></li>
       <li><a href="collapsible.html">Legal</a></li>
     </ul>
-
-
     {%block bodyblock%}
     {%endblock%}
   </body>
