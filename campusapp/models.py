@@ -26,9 +26,10 @@ class Promotion(models.Model):
     def __str__(self):
         return self.name
 
-class MenuItem(models.Model):
+class Item(models.Model):
     name = models.CharField(max_length=30)
-    description =models.TextField(max_length=200)
+    price = models.FloatField(default=00.00)
+    description = models.TextField(max_length=200)
     price = models.FloatField(default=00.00)
     image = models.ImageField(default=None)
 
@@ -36,16 +37,19 @@ class MenuItem(models.Model):
         return self.name
 
 class FoodItem(models.Model):
-    MenuItem = models.OneToOneField(MenuItem)  #extends Menu Item (does this work?)
-    SideItem = models.OneToManyField(SideItem) #might need to change order of this as SideItem defined afterwards
-
+    Item = models.ForeignKey(Item)
     def __str__(self):
-        return self.name
+        return self.Item.name
 
-class SideItem(models.Model):
-    name = models.CharField(max_length=30)
-    Quantity = models.IntegerField(default = 0)
-    image = models.ImageField(default=None) #might need to remove this later - extending class with image FloatField
-
+class DrinkItem(models.Model):
+    CHOICES = (
+    (330, '330ml'),
+    (660,'660ml'),
+    (284,'half pint'),
+    (568,'pint'),
+    (1136,'2 pint pitcher'),
+    )
+    Quantity = models.IntegerField(choices = CHOICES, max_length=20, default="")
+    Item = models.ForeignKey(Item)
     def __str__(self):
-        return self.name
+        return self.Item.name

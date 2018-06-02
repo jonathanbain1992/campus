@@ -12,16 +12,16 @@
 
   <div class="col s6 ">
 
-  {%if events%}
-    {% for Event in events %}
+  {%if items%}
+    {% for item in items %}
 
       <div class="card red darken-2" style="max-height:30%; ">
         <div class="card-image" style="">
-          <img src= "{{Event.image.url}}">
-<span class="card-title">      {{  Event.name}} </span>
+          <img src= "{{item.Item.image.url}}">
+<span class="card-title">      {{  item.Item.name}} </span>
 </div>
-  <div class="card-content red lighten-1">    {{ Event.description}} </div>
-    <div class="card-action "><a href="#">  {{  Event.datetime }} | £{{  Event.price}}</a>     </div>
+  <div class="card-content red lighten-1">    {{ item.Item.description}} </div>
+    <div class="card-action "><a href="#"> £{{  item.Item.price}}</a>     </div>
 </div>
 
 <div style="padding-top:50%"></div>

@@ -10,5 +10,7 @@ urlpatterns = [
     # url(r'^$', 'Campus.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^$', Index.as_view(), name='index'),
+    url(r'^menu/food', FoodMenu.as_view(), name='foodmenu'),
+    url(r'^menu/drink', DrinkMenu.as_view(), name='drinkmenu'),
 
-] 
+]

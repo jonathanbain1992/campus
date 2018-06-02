@@ -18,3 +18,20 @@ class Index(View):
     def get(self,request):
 
         return render(request,self.template,self.context)
+
+class FoodMenu(View):
+    template="Menu.html"
+    allMenuItems = FoodItem.objects.all()
+    context = {"items": allMenuItems}
+
+    def get(self,request):
+        return render(request,self.template,self.context)
+
+
+class DrinkMenu(View):
+    template="Menu.html"
+    allMenuItems = DrinkItem.objects.all()
+    context = {"items": allMenuItems}
+
+    def get(self,request):
+        return render(request,self.template,self.context)
