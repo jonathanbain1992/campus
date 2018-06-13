@@ -2,6 +2,34 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+import datetime
+
+#extending user models:
+
+
+
+class Customer(models.Model):
+    user = models.OneToOneField(User,related_name='User',on_delete=models.CASCADE)
+    tel_no = models.IntegerField(default=0)
+    image = models.ImageField(default=None)
+    niftyfiftypts = models.IntegerField(default=0)
+    #drinkspurchases = models.ForeignKey(DrinkItem)
+
+    def __str__(self):
+        return self.user.username
+
+@receiver(post_save, sender=User)
+def create_customer(sender,instance,created,**kwargs):
+    if created:
+        Customer.objects.create(user=instance)
+    #    User.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender,instance,**kwargs):
+    instance.User.save()
+
+
+
 
 
 
@@ -29,22 +57,37 @@ class Promotion(models.Model):
     def __str__(self):
         return self.name
 
+
+
 class Item(models.Model):
-    name = models.CharField(max_length=30)
-    price = models.FloatField(default=00.00)
-    description = models.TextField(max_length=200)
-    price = models.FloatField(default=00.00)
+
+    name = models.CharField(max_length=30, default=None)
+    price = models.FloatField(default=None)
+    description = models.TextField(max_length=200, default=None)
+    price = models.FloatField(default=None)
     image = models.ImageField(default=None)
+
+    class Meta:
+        abstract = True
+
+
+
+
+
+
+class FoodItem(Item):
+    CHOICES =(
+    (0,"small"),
+    (0,"medium"),
+    (0, "large"),
+    )
+
+    size = models.IntegerField(choices= CHOICES, default=0)
 
     def __str__(self):
         return self.name
 
-class FoodItem(models.Model):
-    Item = models.ForeignKey(Item)
-    def __str__(self):
-        return self.Item.name
-
-class DrinkItem(models.Model):
+class DrinkItem(Item):
     CHOICES = (
     (330, '330ml'),
     (660,'660ml'),
@@ -52,23 +95,19 @@ class DrinkItem(models.Model):
     (568,'pint'),
     (1136,'2 pint pitcher'),
     )
-    Quantity = models.IntegerField(choices = CHOICES, max_length=20, default="")
-    Item = models.ForeignKey(Item)
+    Quantity = models.IntegerField(choices = CHOICES, default=0)
+
+
+
+
     def __str__(self):
-        return self.Item.name
+        return self.name
 
-#extending user models:
+class Order(models.Model):
+    localDateTime = models.DateTimeField(default=datetime.datetime.now(), editable=False)
+    FoodItem = models.ManyToManyField(FoodItem, default=None)
+    DrinkItem = models.ManyToManyField(DrinkItem, default=None)
+    list_display=('localDateTime')
 
-class Customer(models.Model):
-    user = models.OneToOneField(User,related_name='User',on_delete=models.CASCADE)
-    tel_no = models.IntegerField(max_length=14, default=0)
-
-@receiver(post_save, sender=User)
-def create_customer(sender,instance,created,**kwargs):
-    if created:
-        Customer.objects.create(user=instance)
-        User.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender,instance,**kwargs):
-    instance.User.save()
+    def __str__(self):
+        return str(self.localDateTime)
